@@ -1,0 +1,95 @@
+2019-08-30T14:52:26.266Z - normal: Load ~/.CocosCreator/settings.json
+2019-08-30T14:52:26.376Z - normal: Initializing Asset Database
+2019-08-30T14:52:26.379Z - normal: checking language setting...
+2019-08-30T14:52:26.379Z - normal: Language: zh
+2019-08-30T14:52:27.752Z - success: preview server running at http://localhost:7456
+2019-08-30T14:52:27.765Z - success: protocol editor-framework registered
+2019-08-30T14:52:27.765Z - success: protocol app registered
+2019-08-30T14:52:27.765Z - success: protocol theme registered
+2019-08-30T14:52:27.765Z - success: protocol packages registered
+2019-08-30T14:52:27.765Z - success: protocol uuid registerred
+2019-08-30T14:52:27.765Z - success: protocol db registerred
+2019-08-30T14:52:27.765Z - success: protocol thumbnail registerred
+2019-08-30T14:52:27.765Z - success: protocol unpack registerred
+2019-08-30T14:52:27.766Z - success: protocol disable-commonjs registerred
+2019-08-30T14:52:27.945Z - normal: connected!
+2019-08-30T14:52:27.947Z - normal: Check project /Users/browniu/Documents/test/cocos/start_project
+2019-08-30T14:52:27.950Z - normal: Initializing project /Users/browniu/Documents/test/cocos/start_project
+2019-08-30T14:52:28.582Z - normal: Initializing Cocos2d
+2019-08-30T14:52:30.287Z - normal: Initializing engine extends
+2019-08-30T14:52:30.388Z - success: asset-db-debugger loaded
+2019-08-30T14:52:30.390Z - success: baidu-adapter loaded
+2019-08-30T14:52:30.391Z - success: color-picker loaded
+2019-08-30T14:52:30.529Z - success: fb-audience-network loaded
+2019-08-30T14:52:30.607Z - success: fb-live-stream loaded
+2019-08-30T14:52:30.612Z - success: google-play-instant loaded
+2019-08-30T14:52:30.621Z - success: huawei-runtime loaded
+2019-08-30T14:52:31.097Z - success: cpk-publish loaded
+2019-08-30T14:52:31.099Z - success: jsb-adapter loaded
+2019-08-30T14:52:31.105Z - success: oppo-runtime loaded
+2019-08-30T14:52:31.116Z - success: package-manager loaded
+2019-08-30T14:52:31.302Z - success: qqplay-adapter loaded
+2019-08-30T14:52:31.305Z - success: runtime-dev-tools loaded
+2019-08-30T14:52:31.312Z - success: sdkbox loaded
+2019-08-30T14:52:31.318Z - success: tester loaded
+2019-08-30T14:52:31.324Z - success: ui-grid loaded
+2019-08-30T14:52:31.331Z - success: ui-kit-preview-extra loaded
+2019-08-30T14:52:31.337Z - success: ui-kit-preview loaded
+2019-08-30T14:52:31.343Z - success: ui-kit loaded
+2019-08-30T14:52:31.348Z - success: ui-tree loaded
+2019-08-30T14:52:31.356Z - success: vivo-runtime loaded
+2019-08-30T14:52:31.358Z - success: weapp-adapter loaded
+2019-08-30T14:52:31.360Z - success: xiaomi-adapter loaded
+2019-08-30T14:52:31.412Z - success: assets loaded
+2019-08-30T14:52:31.417Z - success: builder loaded
+2019-08-30T14:52:31.803Z - success: cocos-services loaded
+2019-08-30T14:52:31.812Z - success: console loaded
+2019-08-30T14:52:31.860Z - success: fb-instant-games loaded
+2019-08-30T14:52:31.867Z - success: game-window loaded
+2019-08-30T14:52:31.868Z - success: google-instant-games loaded
+2019-08-30T14:52:31.876Z - success: hierarchy loaded
+2019-08-30T14:52:31.884Z - success: inspector loaded
+2019-08-30T14:52:31.886Z - success: keystore loaded
+2019-08-30T14:52:31.894Z - success: node-library loaded
+2019-08-30T14:52:31.897Z - success: package-asset loaded
+2019-08-30T14:52:31.899Z - success: preferences loaded
+2019-08-30T14:52:31.906Z - success: project-exporter loaded
+2019-08-30T14:52:31.911Z - success: project-importer loaded
+2019-08-30T14:52:31.916Z - success: project-settings loaded
+2019-08-30T14:52:31.923Z - success: scene loaded
+2019-08-30T14:52:31.926Z - success: simulator-debugger loaded
+2019-08-30T14:52:31.927Z - success: sprite-editor loaded
+2019-08-30T14:52:31.934Z - success: store loaded
+2019-08-30T14:52:31.947Z - success: timeline loaded
+2019-08-30T14:52:31.953Z - success: xiaomi-runtime loaded
+2019-08-30T14:52:33.240Z - normal: Loading packages
+2019-08-30T14:52:33.244Z - normal: Watching packages
+2019-08-30T14:52:33.402Z - normal: Run Application
+2019-08-30T15:11:42.392Z - success: API data generated and copied to /Users/browniu/Documents/test/cocos/start_project/creator.d.ts
+2019-08-30T15:11:48.835Z - success: VS Code extension installed to /Users/browniu/.vscode/extensions
+2019-08-30T15:12:17.140Z - success: VS Code extension installed to /Users/browniu/.vscode/extensions
+2019-08-30T20:56:05.800Z - error: TypeError: this.log is not a function
+    at new Game (eval at <anonymous> (/Applications/CocosCreator.app/Contents/Resources/engine/bin/.cache/dev/cocos2d/core/platform/CCClass.js:486:20), <anonymous>:10:4)
+    at cc_Node.addComponent (/Applications/CocosCreator.app/Contents/Resources/engine/bin/.cache/dev/cocos2d/core/utils/base-node.js:481:33)
+    at Object.addComponent (/Applications/CocosCreator.app/Contents/Resources/app.asar/editor/page/scene-utils/utils/scene.js:1:6293)
+    at HTMLElement.add-component (/Applications/CocosCreator.app/Contents/Resources/app.asar/editor/builtin/scene/panel/messages/scene-operation.js:1:1166)
+    at Object.e._dispatch (/Applications/CocosCreator.app/Contents/Resources/app.asar/editor-framework/lib/renderer/panel.js:1:1941)
+    at EventEmitter.o.on.s (/Applications/CocosCreator.app/Contents/Resources/app.asar/editor-framework/lib/renderer/ipc.js:1:2921)
+    at emitMany (events.js:127:13)
+    at EventEmitter.emit (events.js:204:7)
+2019-08-30T20:56:39.286Z - normal: xixi
+2019-08-30T20:58:35.402Z - normal: xixi
+2019-08-30T21:06:24.891Z - normal: xixi
+2019-08-30T21:08:24.931Z - warn: 'Game.name' hides inherited property 'cc.Component.name'. To make the current property override that implementation, add the `override: true` attribute please.
+2019-08-30T21:08:24.937Z - error: Can not declare Game.name, it is already defined in the prototype of Game
+    at Object.cc.errorID (/Applications/CocosCreator.app/Contents/Resources/engine/bin/.cache/dev/cocos2d/core/CCDebug.js:167:16)
+    at defineProp (/Applications/CocosCreator.app/Contents/Resources/engine/bin/.cache/dev/cocos2d/core/platform/CCClass.js:122:24)
+    at declareProperties (/Applications/CocosCreator.app/Contents/Resources/engine/bin/.cache/dev/cocos2d/core/platform/CCClass.js:646:25)
+    at Object.CCClass [as Class] (/Applications/CocosCreator.app/Contents/Resources/engine/bin/.cache/dev/cocos2d/core/platform/CCClass.js:685:17)
+    at __define (/Users/browniu/Documents/test/cocos/start_project/temp/quick-scripts/assets/scripts/Game.js:17:4)
+    at /Users/browniu/Documents/test/cocos/start_project/temp/quick-scripts/assets/scripts/Game.js:42:13
+    at Object.<anonymous> (/Users/browniu/Documents/test/cocos/start_project/temp/quick-scripts/assets/scripts/Game.js:49:11)
+    at Object.<anonymous> (/Users/browniu/Documents/test/cocos/start_project/temp/quick-scripts/assets/scripts/Game.js:52:3)
+    at Module._compile (module.js:571:32)
+2019-08-30T21:08:24.998Z - normal: xixi
+2019-08-30T21:08:54.261Z - normal: xixi
