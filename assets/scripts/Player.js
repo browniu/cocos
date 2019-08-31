@@ -8,8 +8,15 @@ cc.Class({
         jumpDuration: 0.3,
         // 最大移动速度
         maxMoveSpeed: 400,
+        // 形变持续时间
+        squashDuration:0.05,
         // 加速度
         accel: 350,
+        // 跳跃音效资源
+        jumpAudio: {
+            default: null,
+            type: cc.AudioClip
+        },
     },
 
     setJumpAction: function () {
@@ -17,10 +24,20 @@ cc.Class({
         var jumpUp = cc.moveBy(this.jumpDuration, cc.v2(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
         // 下落
         var jumpDown = cc.moveBy(this.jumpDuration, cc.v2(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
-        // 不断重复
-        return cc.repeatForever(cc.sequence(jumpUp, jumpDown));
+        // 形变定义
+        var squash = cc.scaleTo(this.squashDuration, 1, 0.9);
+        var stretch = cc.scaleTo(this.squashDuration, 1, 1.1);
+        var scaleBack = cc.scaleTo(this.squashDuration, 1, 1);
+        // 音效回调
+        var callback = cc.callFunc(this.playJumpSound, this);
+        // 调用
+        return cc.repeatForever(cc.sequence(squash, stretch, jumpUp, scaleBack, jumpDown, callback));
     },
 
+    playJumpSound: function () {
+        // 调用声音引擎播放声音
+        cc.audioEngine.playEffect(this.jumpAudio, false);
+    },
     onKeyDown(event) {
         // set a flag when key pressed
         switch (event.keyCode) {
@@ -44,7 +61,21 @@ cc.Class({
                 break;
         }
     },
+    onTouchStart (event) {
+        var touchLoc = event.getLocation();
+        if (touchLoc.x >= cc.winSize.width/2) {
+            this.accLeft = false;
+            this.accRight = true;
+        } else {
+            this.accLeft = true;
+            this.accRight = false;
+        }
+    },
 
+    onTouchEnd (event) {
+        this.accLeft = false;
+        this.accRight = false;
+    },
     onLoad: function () {
         // 初始化跳跃动作
         this.jumpAction = this.setJumpAction();
@@ -70,6 +101,10 @@ cc.Class({
         // 取消键盘输入监听
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        // 取消触摸监听
+        var touchReceiver = cc.Canvas.instance.node;
+        touchReceiver.off('touchstart', this.onTouchStart, this);
+        touchReceiver.off('touchend', this.onTouchEnd, this);
     },
 
     update: function (dt) {
@@ -87,6 +122,14 @@ cc.Class({
 
         // 根据当前速度更新主角的位置
         this.node.x += this.xSpeed * dt;
+        // limit player position inside screen
+        if ( this.node.x > this.node.parent.width/2) {
+            this.node.x = -this.node.parent.width/2;
+            // this.xSpeed = 0;
+        } else if (this.node.x < -this.node.parent.width/2) {
+            this.node.x = this.node.parent.width/2;
+            // this.xSpeed = 0;
+        }
     },
 
 });
