@@ -59,8 +59,8 @@ cc.Class({
         }
         /*开局模块*/
         this.addBlock();
-        this.addBlock();
-        this.addBlock();
+        // this.addBlock();
+        // this.addBlock();
     },
 
     updateScore(num) {/*更新分数*/
@@ -105,23 +105,25 @@ cc.Class({
         const vec = this.touchStartPoint.sub(this.touchEndPoint);
         if (vec.mag() < this.touchLength) return;
         const direction = this.vecDirection(vec);
-        switch (direction) {
-            case 'left':
-                this.onLeft();
-                break;
-            case 'right':
-                this.onRight();
-        }
-        cc.log(direction)
+        this.touchHandle(direction);
     },
+
+    touchHandle(direction) {
+        for (let i = 0; i < GRID[0]; i++) { /*操作所有方格*/
+            for (let j = 0; j < GRID[1]; j++) {
+                if (this.blocksData[i][j]) this.blockHandle([i, j], direction) /*当前方格有效*/
+            }
+        }
+    },
+
     onLeft() {
 
-        const move = (positionIndex) => {/*移动*/
+        const move = (positionIndex) => { /*移动*/
             const [x, y] = positionIndex;
-            if (y === 0 || !this.blocksData[x][y]) {/*到顶或者为空是结束迭代*/
-                cc.log(1)
-            } else if (!this.blocksData[x][y - 1]) {/*前一格为空*/
-                // 移动
+
+            if (y === 0 || !this.blocksData[x][y]) return; /*到顶或为不可操作元素*/
+
+            if (!this.blocksData[x][y - 1]) { /*临近目标格为空*/
                 const currentBlock = this.blocks[x][y];
                 const newPosition = this.blocksPosition[x][y - 1];
                 this.blocks[x][y - 1] = currentBlock;
@@ -132,7 +134,10 @@ cc.Class({
                     cc.log('auto');
                     move([x, y - 1]);
                 });
-            } else if (this.blocksData[x][y - 1] === this.blocksData[x][y]) {/*与前一格相同*/
+                return;
+            }
+
+            if (this.blocksData[x][y - 1] === this.blocksData[x][y]) { /*临近目标格同值*/
                 // 合并
                 const currentBlock = this.blocks[x][y];
                 const newPosition = this.blocksPosition[x][y - 1];
@@ -144,26 +149,45 @@ cc.Class({
                 this.blockMove(currentBlock, newPosition, () => {
                     currentBlock.destroy()
                 });
-            } else cc.log(4)/*与前一格不同*/
+            }
         };
 
-        const blocks = [];/*获取全部可操作方块*/
-        for (let i = 0; i < GRID[0]; i++) {/*遍历查找方块*/
+        for (let i = 0; i < GRID[0]; i++) { /*操作所有方格*/
             for (let j = 0; j < GRID[1]; j++) {
-                if (this.blocksData[i][j]) blocks.push({x: i, y: j})
+                if (this.blocksData[i][j]) move([i, j])
             }
         }
 
-        for (let i = 0; i < blocks.length; i++) {
-            move([blocks[i].x, blocks[i].y], (num) => {
-                cc.log('case:' + num)
-            })
+    },
+
+    // 根据其自身位置关系进行对应操作
+    /**
+     * 根据其自身位置关系进行对应操作
+     * @param {array} blockIndex 当前方格坐标
+     * @param {array} direction 操作手势
+     * **/
+    blockHandle(blockIndex, direction) {
+
+        const {nextBlockIndex, blockRange} = this.getNextBlockIndexAndRange(blockIndex, direction);
+        const block = this.blocks[blockIndex[0]][blockIndex[1]];
+        const blockData = this.blocksData[blockIndex[0]][blockIndex[1]];
+        const nextBlock = this.blocks[nextBlockIndex[0]][nextBlockIndex[1]];
+        const nextBlockData = this.blocksData[nextBlockIndex[0]][nextBlockIndex[1]];
+        const nextBlockPosition = this.blocksPosition[nextBlockIndex[0]][nextBlockIndex[1]];
+
+        if (blockRange || !blockData) return; /*临界或非法*/
+        if (!nextBlockData) { /*临近目标格为空*/
+            this.blocks[nextBlockIndex[0]][nextBlockIndex[1]] = block;
+            this.blocksData[nextBlockIndex[0]][nextBlockIndex[1]] = blockData;
+            this.blocks[blockIndex[0]][blockIndex[1]] = null;
+            this.blocksData[blockIndex[0]][blockIndex[1]] = 0;
+            this.blockMove(block, nextBlockPosition, () => {
+                console.log(nextBlockIndex);
+                this.blockHandle(nextBlockIndex, direction)
+            });
         }
-
-
     },
-    onRight() {
-    },
+
     /**
      * 移动格子
      * @param {cc.Node} block
@@ -174,6 +198,36 @@ cc.Class({
         const move = cc.moveTo(0.2, position).easing(cc.easeCubicActionOut());
         const call = callback ? cc.callFunc(callback) : () => undefined;
         block.runAction(cc.sequence(move, call));
+    },
+    getNextBlockIndexAndRange(vec, direction) {
+        const [i, j] = vec;
+        cc.log(i, j);
+        let nextBlockIndex = [];
+        let blockRange = false;
+        let i2, j2;
+        switch (direction) { /*确定目标方格的位置*/
+            case 'left':
+                j2 = j - 1 > 0 ? j - 1 : 0;
+                nextBlockIndex = [i, j2];
+                blockRange = j === 0;
+                break;
+            case 'right':
+                j2 = j + 1 < GRID[0] - 1 ? j + 1 : GRID[0] - 1;
+                nextBlockIndex = [i, j2];
+                blockRange = j2 === GRID[0] - 1;
+                break;
+            case 'up':
+                i2 = i + 1 < GRID[0] - 1 ? i + 1 : GRID[0] - 1;
+                nextBlockIndex = [i2, j];
+                blockRange = i2 === GRID[0] - 1;
+                break;
+            case 'down':
+                i2 = i - 1 > 0 ? i - 1 : 0;
+                nextBlockIndex = [i2, j];
+                blockRange = i === 0;
+        }
+        cc.log(nextBlockIndex);
+        return {nextBlockIndex, blockRange}
     },
 
     vecDirection(vec) {/*向量差的方向*/
