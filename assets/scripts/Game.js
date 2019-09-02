@@ -1,3 +1,5 @@
+import fetchJsonp from 'fetch-jsonp'
+
 cc.Class({
     extends: cc.Component,
 
@@ -39,7 +41,9 @@ cc.Class({
         // 生成一个新的星星
         this.spawnNewStar();
         // 初始化记分
-        this.score = 0
+        this.score = 0;
+        // 请求数据
+        this.request()
     },
     update: function (dt) {
         if (this.timer > this.starDuration) {/*超时没有重置计时器则判断失败*/
@@ -53,7 +57,6 @@ cc.Class({
         this.scoreDisplay.string = `Score: ${this.score}`;/*更新显示*/
         cc.audioEngine.playEffect(this.scoreAudio, false)/*播放音效*/
     },
-    // 生成新的星星
     spawnNewStar: function () {
         // 使用预制模版生成节点
         const newStar = cc.instantiate(this.starPrefab);
@@ -64,18 +67,29 @@ cc.Class({
         // 重置计时器
         this.starDuration = this.minStarDuration + Math.random() * (this.maxStarDuration - this.minStarDuration);
         this.timer = 0;
-    },
-    // 获取一个新的随机位置
+    },/*生成新的星星*/
     getNewStarPosition: function () {
         const randY = this.groundY + (Math.random() - 0.5) * this.player.getComponent('Player').jumpHeight - 50;
         const maxX = this.node.width / 2;
         const randX = (Math.random() - 0.5) * 2 * maxX;
         return cc.v2(randX, randY)
-    },
-    // 失败逻辑
+    },/*获取一个新的随机位置*/
     gameOver: function () {
-        cc.log('game over');
         this.score = 0;
         this.scoreDisplay.string = `Score: 0`;/*更新显示*/
-    }
+    }, /*失败逻辑*/
+    request: function () {
+        cc.log('requests');
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            cc.log(xhr);
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                var response = xhr.responseText;
+                console.log(response);
+            }
+        };
+        xhr.open("GET", 'https://jsonplaceholder.typicode.com/todos/1', true);
+        xhr.send();
+
+    } /*请求数据*/
 });

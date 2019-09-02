@@ -4,7 +4,7 @@ cc.Class({
     properties: {
         pickRadius: 100,
     },
-    update: function (dt) {
+    update: function () {
         if (this.getPlayDistance() < this.pickRadius) { /*每帧判断和主角的距离是否小于可收集的范围*/
             this.onPicked();
         }
