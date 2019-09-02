@@ -1,0 +1,22 @@
+{
+  "name": "start_project",
+  "version": "1.0.0",
+  "description": "learn cocos creater",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/browniu/cocos.git"
+  },
+  "author": "browniu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/browniu/cocos/issues"
+  },
+  "homepage": "https://github.com/browniu/cocos#readme",
+  "dependencies": {
+    "fetch-jsonp": "^1.1.3"
+  }
+}
