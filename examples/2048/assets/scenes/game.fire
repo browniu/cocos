@@ -412,7 +412,7 @@
   {
     "__type__": "cc.Node",
     "_name": "header",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 5
     },
@@ -453,7 +453,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 360,
-      "y": 1080,
+      "y": 1120,
       "z": 0
     },
     "_scale": {
@@ -727,7 +727,7 @@
     "_alignFlags": 17,
     "_left": 0,
     "_right": 0,
-    "_top": 200,
+    "_top": 160,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
